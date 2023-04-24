@@ -1,11 +1,16 @@
 import React from 'react'
 
-const login = () => {
+import LoginSignupLayout from '../components/templates/LoginSignupLayout';
+import LoginForm from '../components/organisms/LoginForm.jsx';
+
+const Login = () => {
   return (
     <section id='login'>
-        
+        <LoginSignupLayout text='Para continuar navegando de forma segura, efetue o login'>
+            <LoginForm/>
+        </LoginSignupLayout>
     </section>
   )
 }
 
-export default login
+export default Login
