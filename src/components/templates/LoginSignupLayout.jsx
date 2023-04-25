@@ -9,7 +9,7 @@ const LoginSignupLayout = ({ children, text }) => {
     <main className="main">
 
         <section className="section-content">
-            <div>
+            <div className='main-title'>
     
                 <h1 className="h1-title">Olá,</h1>
     
