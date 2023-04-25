@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, ChangeEvent } from "react";
 
-const InputBirth = () => {
-  const [date, setDate] = React.useState('');
+const InputBirth = (): JSX.Element => {
+  const [date, setDate] = useState<string>('');
 
-  const handleDateChange = (event) => {
+  const handleDateChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setDate(event.target.value);
   };
 

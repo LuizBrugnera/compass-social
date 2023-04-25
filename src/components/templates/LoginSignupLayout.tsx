@@ -1,10 +1,15 @@
-import React from 'react'
-
-import compass_img from '../../assets/compass.png';
+import React, { ReactNode } from 'react';
 
 import './LoginSignupLayout.css';
 
-const LoginSignupLayout = ({ children, text }) => {
+type LoginSignupLayoutProps = {
+    children: ReactNode;
+    text: string;
+}
+
+const compass_img = require("../../assets/compass.png") as string;
+
+const LoginSignupLayout = ({ children, text } : LoginSignupLayoutProps) => {
   return (
     <main className="main">
 
