@@ -2,6 +2,7 @@ import React from "react";
 
 import "./SignupForm.css";
 import InputBirth from "../atoms/InputBirth";
+import { InputVerifiable } from "../molecules/InputVerifiable";
 
 const SignupForm = () => {
   return (
@@ -10,42 +11,52 @@ const SignupForm = () => {
 
       <form className="form">
         <div>
-          <input
-            className="form-input name"
-            id="name"
-            type="text"
-            placeholder="Nome"
+          <InputVerifiable
+          className="form-input name"
+          message="Nome invalido"
+          id="name"
+          type="text"
+          placeholder="Nome"
+          regex={new RegExp("^[a-zA-Z]{2,}$")}
           />
           <span className="input-name"></span>
 
-          <input
-            className="form-input user"
-            type="text"
-            placeholder="Usuário"
+          <InputVerifiable
+          className="form-input user"
+          message="Nome de Usuário invalido"
+          type="text"
+          placeholder="Usuário"
+          regex={new RegExp("^[a-zA-Z0-9_-]{4,}$")}
           />
           <span className="input-user"></span>
 
           <InputBirth />
           <span className="input-birth"></span>
 
-          <input
-            className="form-input email"
-            type="email"
-            placeholder="Email"
+          <InputVerifiable
+          className="form-input email"
+          message="Email invalido"
+          type="email"
+          placeholder="Email"
+          regex={new RegExp("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")}
           />
           <span className="input-email"></span>
 
-          <input
-            className="form-input password"
-            type="password"
-            placeholder="Senha"
+          <InputVerifiable
+          className="form-input password"
+          message="Senha invalida"
+          type="password"
+          placeholder="Senha"
+          regex={new RegExp("^(?=.*[A-Z])(?=.*\\d).{6,}$")}
           />
           <span className="input-password"></span>
 
-          <input
-            className="form-input cnfPassword"
-            type="password"
-            placeholder="Confirmar Senha"
+          <InputVerifiable
+          className="form-input cnfPassword"
+          message="Senha invalida"
+          type="password"
+          placeholder="Senha"
+          regex={new RegExp("^(?=.*[A-Z])(?=.*\\d).{6,}$")}
           />
           <span className="input-confirm-password"></span>
         </div>

@@ -5,7 +5,7 @@ import SignupForm from '../components/organisms/SignupForm';
 
 const Login = () => {
   return (
-    <section id='login'>
+    <section id='signup'>
         <LoginSignupLayout text='Para continuar navegando de forma segura, efetue o login'>
             <SignupForm/>
         </LoginSignupLayout>

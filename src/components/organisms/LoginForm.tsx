@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./LoginForm.css";
+import { InputVerifiable } from "../molecules/InputVerifiable";
 
 const LoginForm = () => {
   return (
@@ -9,22 +10,23 @@ const LoginForm = () => {
 
       <form className="form">
         <div>
-          <input
-            className="form-input user"
-            type="text"
-            placeholder="Usuário"
+          <InputVerifiable
+          className="form-input user"
+          message="Insira o usuário"
+          type="text"
+          placeholder="Nome"
           />
           <span className="input-name"></span>
 
-          <input
-            className="form-input password"
-            type="password"
-            placeholder="Senha"
+          <InputVerifiable
+          className="form-input password"
+          message="Insira a senha"
+          type="password"
+          placeholder="Senha"
           />
           <span className="input-password"></span>
         </div>
-        <span className="error-warning error1"></span>
-        <span className="error-warning error2"></span>
+        <span className="error-warning"></span>
         <span className="success-warning"></span>
 
         <button type="submit" className="btn-register">
