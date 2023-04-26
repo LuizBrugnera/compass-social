@@ -3,7 +3,7 @@ import React from "react";
 import "./SignupForm.css";
 import InputBirth from "../atoms/InputBirth";
 import { InputVerifiable } from "../molecules/InputVerifiable";
-import ButtonSubmit from "../molecules/ButtonSubmitSignup";
+import ButtonSubmitSignup from "../molecules/ButtonSubmitSignup";
 
 const SignupForm = () => {
   const elementSubmitList = [
@@ -103,7 +103,7 @@ const SignupForm = () => {
         <span className="error-warning"></span>
         <span className="success-warning"></span>
 
-        <ButtonSubmit className="btn-register" elementList={elementSubmitList}>Registre-se</ButtonSubmit>
+        <ButtonSubmitSignup className="btn-register" elementList={elementSubmitList}>Registre-se</ButtonSubmitSignup>
       </form>
       <p className="p-form">
         Já possui uma conta?

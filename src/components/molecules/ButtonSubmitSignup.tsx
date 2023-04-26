@@ -3,7 +3,7 @@ import React from "react";
 import { ButtonSubmitSignupType } from "./ButtonSubmitSignupType";
 import { checkElementList } from "../atoms/checker";
 
-const ButtonSubmit = ({
+const ButtonSubmitSignup = ({
   children,
   className,
   id,
@@ -41,4 +41,4 @@ const ButtonSubmit = ({
   );
 };
 
-export default ButtonSubmit;
+export default ButtonSubmitSignup;
