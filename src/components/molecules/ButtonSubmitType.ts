@@ -1,4 +1,4 @@
-export interface ButtonSubmitSignupType {
+export interface ButtonSubmitType {
     children: string;
     className: string;
     elementList: elementListType[];

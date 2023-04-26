@@ -2,8 +2,15 @@ import React from "react";
 
 import "./LoginForm.css";
 import { InputVerifiable } from "../molecules/InputVerifiable";
+import ButtonSubmitLogin from "../molecules/ButtonSubmitLogin";
 
 const LoginForm = () => {
+
+  const elementList = [
+    {className: "user", message: "Insira o usuário"},
+    {className: "password", message: "Insira a senha"}
+  ];
+
   return (
     <div className="conteiner_login">
       <h2 className="form-title">Registro</h2>
@@ -28,10 +35,8 @@ const LoginForm = () => {
         </div>
         <span className="error-warning"></span>
         <span className="success-warning"></span>
-
-        <button type="submit" className="btn-register">
-          Logar-se
-        </button>
+        
+        <ButtonSubmitLogin className="btn-register" elementList={elementList}>Logar-se</ButtonSubmitLogin>
       </form>
       <p className="p-form">
         Novo por aqui?

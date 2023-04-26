@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ButtonSubmitSignupType } from "./ButtonSubmitSignupType";
+import { ButtonSubmitType } from "./ButtonSubmitType";
 import { checkElementList } from "../atoms/checker";
 
 const ButtonSubmitSignup = ({
@@ -8,7 +8,7 @@ const ButtonSubmitSignup = ({
   className,
   id,
   elementList,
-}: ButtonSubmitSignupType) => {
+}: ButtonSubmitType) => {
   const handlerSubmitForm = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (checkElementList(elementList)) {

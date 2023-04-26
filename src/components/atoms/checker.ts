@@ -1,4 +1,4 @@
-import { elementListType } from "../molecules/ButtonSubmitSignupType";
+import { elementListType } from "../molecules/ButtonSubmitType";
 
 function check(event: React.ChangeEvent<HTMLInputElement>, regex: RegExp) {
   return regex.test((event.target as HTMLInputElement).value);
