@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import { checkInputNoRegex } from "./checker";
 
 const InputBirth = (): JSX.Element => {
   const [date, setDate] = useState<string>('');
@@ -19,7 +20,10 @@ const InputBirth = (): JSX.Element => {
         }}
         id="date"
         value={date}
-        onChange={handleDateChange}
+        onChange={(e) => {
+          handleDateChange(e);
+          checkInputNoRegex(e, "Preencha a sua data de nascimento!")
+        }}
       />
     </>
   );

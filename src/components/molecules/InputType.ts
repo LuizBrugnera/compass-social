@@ -5,4 +5,6 @@ export interface InputType {
     regex ?: RegExp;
     placeholder?: string;
     id?: string;
+    passwordEquals?: boolean;
+    passwordTarget?: string;
 }
