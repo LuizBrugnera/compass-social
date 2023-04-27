@@ -10,7 +10,9 @@ const HomeLayout = () => {
     <main className="container_main">
       <div className="container_section">
         <div className="container_side_bar">
-          <img className="logo" src={compass_logo} alt="logo compass" />
+          <div className="container_logo_compass">
+            <img className="logo" src={compass_logo} alt="logo compass" />
+          </div>
         </div>
         <div className="container_home">
           <div className="container_nav">
