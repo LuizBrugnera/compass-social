@@ -19,11 +19,13 @@ const users = {"users":[{"name":"Ana Luiza Landim Irschlinger","user":"analuizal
 "birthdate":"1993-11-17","email":"vinicius.peres.pb@compasso.com.br","password":"BolsistasUOL","profile_photo":"https://exemplo.com/imagens/viniciusperes.jpg"},{"name":"Vinicius Madruga Telles","user":"viniciustelles","birthdate":"1994-01-23","email":"vinicius.telles.pb@compasso.com.br","password":"BolsistasUOL","profile_photo":"https://exemplo.com/imagens/viniciustelles.jpg"},{"name":"Yuri Gonçalves Caetano","user":"yuricaetano","birthdate":"1992-10-20","email":"yuri.caetano.pb@compasso.com.br","password":"BolsistasUOL","profile_photo":"https://exemplo.com/imagens/yuri.jpg"}]}
 
 users.users.forEach(user => {
-    user.profile_photo = 'https://picsum.photos/200/300';
+    let rand = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
+    user.profile_photo = `https://picsum.photos/${rand}/${rand}`;
 });
 
 posts.posts.forEach(post => {
-    post.url_imagem = 'https://picsum.photos/1000/1000';
+    let rand = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
+    post.url_imagem = `https://picsum.photos/${rand}/${rand}`;
 });
 
 app.get('/api/v1/user', (req, res) => {

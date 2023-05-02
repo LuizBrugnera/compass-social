@@ -31,3 +31,4 @@ password - luiz.brugnera.pb@compasso.com.br
 
 # signup 
 
+the signup is still just static
