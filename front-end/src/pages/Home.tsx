@@ -7,13 +7,13 @@ const Home = () => {
   const [postList, setPostList] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:3005/api/v1/user/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/v1/user/`)
       .then(response => response.json())
       .then(data => setUserList(data.users));
   }, []);
   
   useEffect(() => {
-    fetch('http://localhost:3005/api/v1/user/post')
+    fetch(`${process.env.REACT_APP_API_URL}/api/v1/user/post`)
       .then(response => response.json())
       .then(data => setPostList(data.posts));
   }, []);

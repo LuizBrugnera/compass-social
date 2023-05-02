@@ -6,13 +6,13 @@ import LoginForm from '../components/organisms/LoginForm';
 const Login = () => {
 
   const [userList, setUserList] = useState<any[]>([]);
-
+  console.log(process.env.REACT_APP_API_URL)
   useEffect(() => {
-    fetch('http://localhost:3005/api/v1/user/')
+    fetch(`${process.env.REACT_APP_API_URL}/api/v1/user/`)
       .then(response => response.json())
       .then(data => setUserList(data.users));
   }, []);
-  
+
   return (
     <section id='login'>
         <LoginSignupLayout text='Para continuar navegando de forma segura, efetue o login'>
