@@ -1,0 +1,70 @@
+.container_item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+
+  padding-top: 16px;
+  padding-left: 20px;
+}
+
+.friend_box {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 267.5px;
+  padding-bottom: 20px;
+  max-height: 400px;
+
+  background: #1e1f23;
+  border: 2px solid #2e2f36;
+  border-radius: 16px;
+
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.friend_box.show {
+    max-height: 2000px;
+}
+
+.drop_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+
+  padding: 24px 20px;
+  padding-bottom: 8px;
+
+  cursor: pointer;
+}
+
+.friend_img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.friend_name {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.font_14 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.font_16 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}

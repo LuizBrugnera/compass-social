@@ -1,0 +1,49 @@
+.post_header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+
+  width: 100%;
+  padding: 19.5px 16px;
+}
+
+.friend_img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.container_friend_data {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.container_time {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.font_14 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.font_gray_12 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+
+  color: #75767d;
+}
+
+.time_icon {
+    margin-right: 7.5px;
+}

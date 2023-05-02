@@ -1,0 +1,41 @@
+.container_interactions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  
+    width: 100%;
+    padding: 26px 16px;
+    padding-bottom: 18.5px;
+  }
+  .container_interaction_block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+  
+    cursor: pointer;
+  }
+  .box_count{
+    background: #27282f;
+  
+    padding: 2px 6px;
+    border-radius: 1rem;
+
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 10px;
+  }
+  
+  .liked {
+    background: #2d86fc;
+  }
+
+  .inter_12 {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+  }
