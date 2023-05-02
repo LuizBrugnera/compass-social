@@ -11,3 +11,12 @@ node index.js
 npm i 
 tsc 
 npm start
+
+# deploy
+
+front end
+https://compass-social-2hbp.vercel.app/
+
+api 
+
+https://social-compass-api.onrender.com
