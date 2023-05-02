@@ -20,3 +20,14 @@ https://compass-social-2hbp.vercel.app/
 api 
 
 https://social-compass-api.onrender.com
+
+# login
+
+you can login with email or user
+
+user - luizbrugnera
+email - luiz.brugnera.pb@compasso.com.br
+password - luiz.brugnera.pb@compasso.com.br
+
+# signup 
+
