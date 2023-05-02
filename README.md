@@ -5,11 +5,15 @@ social network prototype with front end and api
 # how to start
 # api
 npm i
+
 node index.js
 
-# front-end 
+# front-end
+
 npm i 
+
 tsc 
+
 npm start
 
 # deploy
