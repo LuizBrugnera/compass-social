@@ -47,34 +47,9 @@
   }
 
   @media screen and (min-width: 1440px) {
-    .font_10 {
-      font-size: 12px;
-      line-height: 18px;
-    }
-  
-    .font_11 {
-      font-size: 13px;
-      line-height: 19.5px;
-    }
-  
-    .font_12 {
+
+    .font_12_pd16, .font_12 {
       font-size: 14px;
       line-height: 21px;
     }
-  
-    .font_14 {
-      font-size: 16px;
-      line-height: 24px;
-    }
-  
-    .font_16 {
-      font-size: 18px;
-      line-height: 27px;
-    }
-  
-    .font_8 {
-      font-size: 10px;
-      line-height: 15px;
-    }
-  
   }
