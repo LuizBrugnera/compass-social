@@ -1,7 +1,9 @@
 import React from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from "react-router-dom";
 //atoms
 import { checkElementList } from "../atoms/checker";
+/// auth provider
+import { useAuth } from '../../AuthProvider';
 // types
 import { ButtonSubmitType } from "../types/ButtonSubmitType";
 const ButtonSubmitLogin = ({
@@ -11,13 +13,12 @@ const ButtonSubmitLogin = ({
   elementList,
   userList,
 }: ButtonSubmitType) => {
+
+  const { signIn } = useAuth();
   const navigate = useNavigate();
+
   const handlerSubmitLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    if(userList) {
-      console.log(userList)
-      console.log(userList[0])
-    }
     if (checkElementList(elementList)) {
       const form = document.querySelector(".form")! as HTMLFormElement;
       const sucessMessage = document.querySelector(
@@ -27,14 +28,25 @@ const ButtonSubmitLogin = ({
         ".error-warning"
       )! as HTMLSpanElement;
       const userInput = document.querySelector(".user")! as HTMLInputElement;
-      const passwordInput = document.querySelector(".password")! as HTMLInputElement;
-        
-      if(userList) {
-        console.log(userList);
-        if (userList.find((user) => (user.user === userInput.value || user.email === userInput.value) && user.password === passwordInput.value)) {
+      const passwordInput = document.querySelector(
+        ".password"
+      )! as HTMLInputElement;
+
+      console.log(userInput.value, passwordInput.value);
+
+      if (userList) {
+        const userFinded = userList.find(
+          (user) =>
+            (user.user === userInput.value ||
+              user.email === userInput.value) &&
+            user.password === passwordInput.value
+        )
+        if (userFinded) {
+
+          signIn(userFinded);
           sucessMessage.style.display = "flex";
           sucessMessage.innerHTML = "Login realizado com sucesso!";
-          navigate('/home');
+          navigate("/home");
         } else {
           errorMessage.style.display = "flex";
           errorMessage.innerHTML = "Usuário ou senha incorretos!";

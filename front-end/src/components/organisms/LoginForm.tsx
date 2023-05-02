@@ -46,7 +46,7 @@ const LoginForm = ({userList} : loginType) => {
       </form>
       <p className="p-form">
         Novo por aqui?
-        <a href="/" className="a-register">
+        <a href="/signup" className="a-register">
           {" "}
           Registre-se
         </a>

@@ -7,11 +7,25 @@ import PostFlush from "../organisms/PostFlush";
 // assets
 import compass_logo from "../../assets/compass_logo.png";
 import house_icon from "../../assets/house_icon.png";
-import user_img from "../../assets/user_img.png";
+import user_img from "../../assets/default_photo.png";
 import InputPost from "../atoms/InputPost";
+import { useAuth } from '../../AuthProvider';
+
 
 const HomeLayout = ({ userList, postList, setPostList }: any) => {
+  
+  let { user } = useAuth();
 
+  if(user === null) {
+    user = {
+      name: "Usuário",
+      user: "usuario",
+      birthdate: "1912-06-23",
+      email: "usuario@gmail.com",
+      password: "usuario",
+      profile_photo: user_img,
+    }
+  }
   return (
     <main className="container_main">
       <div className="container_section">
@@ -27,8 +41,10 @@ const HomeLayout = ({ userList, postList, setPostList }: any) => {
               <h1 className="font_16">Home</h1>
             </div>
             <div className="container_item">
-              <span className="font_16">Ednaldo Pereira</span>
-              <img src={user_img} alt="my profile" />
+              <span className="font_16">{user.name}</span>
+              <div className="profile_box"> 
+                <img className="user_img" src={user.profile_photo} alt="user img" />
+              </div>
             </div>
           </div>
           <div className="container_content">

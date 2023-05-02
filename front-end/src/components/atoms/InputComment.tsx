@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // assets
-import my_user from "../../assets/user_img.png";
+import user_img from "../../assets/default_photo.png";
 // css
 import styles from "./InputComment.module.css";
 //assets
@@ -9,6 +9,8 @@ import img_icon from "../../assets/img_icon.png";
 import clip_icon from "../../assets/clip_icon.png";
 import point_icon from "../../assets/point_icon.png";
 import smile_icon from "../../assets/smile_icon.png";
+///auth user
+import { useAuth } from '../../AuthProvider';
 
 // types
 type InputAreaType = {
@@ -17,6 +19,20 @@ type InputAreaType = {
   setPostList?: any;
 };
 const InputArea = ({ message, type, setPostList }: InputAreaType) => {
+
+  let { user } = useAuth();
+
+  if(user === null) {
+    user = {
+      name: "Usuário",
+      user: "usuario",
+      birthdate: "1912-06-23",
+      email: "usuario@gmail.com",
+      password: "usuario",
+      profile_photo: user_img,
+    }
+  }
+
   const handlerImgInput = () => {
     setImgInput(!imgInput);
   };
@@ -30,7 +46,7 @@ const InputArea = ({ message, type, setPostList }: InputAreaType) => {
       setPostList((prevState: any) => {
         return [
           {
-            user: "luizbrugnera",
+            user: user?.user,
             description: description,
             url_imagem: url_imagem,
             post_date: now.getTime(),
@@ -50,7 +66,7 @@ const InputArea = ({ message, type, setPostList }: InputAreaType) => {
   return (
     <>
       <div className={styles.container_add}>
-        <img className={styles.friend_img} src={my_user} alt="friend" />
+        <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
         <input
           className={styles.input_post}
           type="text"
@@ -64,7 +80,7 @@ const InputArea = ({ message, type, setPostList }: InputAreaType) => {
         <>
           {imgInput && (
             <div className={`${styles.container_add} ${styles.pad16}`}>
-              <img className={styles.friend_img} src={my_user} alt="friend" />
+              <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
               <input
                 className={styles.input_post}
                 type="text"
@@ -78,7 +94,7 @@ const InputArea = ({ message, type, setPostList }: InputAreaType) => {
 
           {locationInput && (
             <div className={`${styles.container_add} ${imgInput ? styles.pad16_bottom : styles.pad16}`}>
-              <img className={styles.friend_img} src={my_user} alt="friend" />
+              <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
               <input
                 className={styles.input_post}
                 type="text"

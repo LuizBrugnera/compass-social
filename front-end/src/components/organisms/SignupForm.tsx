@@ -107,7 +107,7 @@ const SignupForm = () => {
       </form>
       <p className="p-form">
         Já possui uma conta?
-        <a href="../login/index.html" className="a-login">
+        <a href="/login" className="a-login">
           {" "}
           Faça Login
         </a>

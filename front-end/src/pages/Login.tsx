@@ -12,7 +12,7 @@ const Login = () => {
       .then(response => response.json())
       .then(data => setUserList(data.users));
   }, []);
-
+  
   return (
     <section id='login'>
         <LoginSignupLayout text='Para continuar navegando de forma segura, efetue o login'>
