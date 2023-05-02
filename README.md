@@ -8,6 +8,6 @@ npm i
 node index.js
 
 # front-end 
-npm i --force
+npm i 
 tsc 
 npm start
