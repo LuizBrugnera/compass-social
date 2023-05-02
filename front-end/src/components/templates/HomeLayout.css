@@ -27,7 +27,7 @@ p {
   display: flex;
   justify-content: center;
 
-  min-width: 1440px;
+  width: 100%;
   height: 100%;
 }
 
@@ -120,7 +120,7 @@ p {
   justify-content: space-between;
   align-items: flex-start;
 
-  max-width: 710px;
+  max-width: 100%;
   min-height: 120px;
 
   background: #1e1f23;
@@ -335,7 +335,7 @@ p {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 980px) {
 
   .container_side_bar {
     display: none;
@@ -344,4 +344,36 @@ p {
   .container_home {
     width: 100%;
   }
+}
+@media screen and (min-width: 1440px) {
+  .font_10 {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .font_11 {
+    font-size: 13px;
+    line-height: 19.5px;
+  }
+
+  .font_12 {
+    font-size: 14px;
+    line-height: 21px;
+  }
+
+  .font_14 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .font_16 {
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  .font_8 {
+    font-size: 10px;
+    line-height: 15px;
+  }
+
 }

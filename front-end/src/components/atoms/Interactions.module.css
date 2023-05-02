@@ -39,3 +39,21 @@
     font-size: 12px;
     line-height: 18px;
   }
+
+
+  @media screen and (min-width: 1440px) {
+
+    .inter_12 {
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+  }
+
+  @media screen and (max-width: 490px) {
+
+    .inter_12 {
+      display: none;
+    }
+
+  }

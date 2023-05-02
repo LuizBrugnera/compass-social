@@ -187,7 +187,11 @@ span {
   .btn-register {
     width: 324.8px;
   }
-
+  .p-title {
+    width: initial;
+    padding: 0px 10px;
+    height: 24px;
+  }
   .input-name::before,
   .input-user::before,
   .input-birth::before,

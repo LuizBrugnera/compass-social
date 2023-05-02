@@ -23,7 +23,7 @@ const PostBox = ({post, userList} : PostBoxType) => {
     }
 
     const user = getUser(defaultPhoto);
-    console.log(post)
+
   return (
     <div className="post_box">
       <PostHeader profile_photo={user.profile_photo} name={user.name} post_date={post.post_date}/>
