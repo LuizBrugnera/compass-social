@@ -8,10 +8,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended : false}));
 app.use(cors());
-app.use("/api/v1", router);
+app.use("/api/test", router);
 
-main();
-
-app.listen(process.env.PORT || 3005, () => {
-    console.log('Servidor da API rodando....');
-})
+export default app;

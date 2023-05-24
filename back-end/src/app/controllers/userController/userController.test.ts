@@ -1,6 +1,6 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-import app from '../../../../server';
+import app from '../../../../testServer';
 import { userModel } from '../../models/User';
 import dotenv from "dotenv"; 
 dotenv.config();
@@ -8,6 +8,10 @@ dotenv.config();
 beforeAll(async () => {
   const url = process.env.MONGODB_URL_TEST!;
   await mongoose.connect(url);
+
+  app.listen(process.env.PORT || 3055, () => {
+    console.log('Servidor da API rodando....');
+})
 });
 
 afterAll(async () => {
@@ -20,14 +24,14 @@ describe('User Controller', () => {
 
   test('should create a new user', async () => {
     const response = await request(app)
-      .post('/api/v1/user')
+      .post('/api/test/user')
       .send({
         name: 'test',
         user: 'testuser',
         birthdate: new Date(),
         email: 'test@test.com',
         password: 'password',
-        profile_photo: 'test.jpg',
+        profile_photo: 'https://www.test.url.1024x431.png',
       });
 
     expect(response.statusCode).toBe(201);
@@ -38,21 +42,21 @@ describe('User Controller', () => {
 
   test('should update an existing user', async () => {
     const response = await request(app)
-      .put(`/api/v1/user/${userId}`)
+      .put(`/api/test/user/${userId}`)
       .send({
         name: 'updatedName',
         user: 'updatedUser',
         birthdate: new Date(),
         email: 'updatedEmail@test.com',
         password: 'updatedPassword',
-        profile_photo: 'updated.jpg',
+        profile_photo: 'https://www.updated.jpg',
       });
 
     expect(response.statusCode).toBe(200);
   });
 
   test('should get all users', async () => {
-    const response = await request(app).get('/api/v1/user');
+    const response = await request(app).get('/api/test/user');
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('Users found successfully');
@@ -61,7 +65,7 @@ describe('User Controller', () => {
   });
 
   test('should get a user by id', async () => {
-    const response = await request(app).get(`/api/v1/user/${userId}`);
+    const response = await request(app).get(`/api/test/user/${userId}`);
 
     expect(response.statusCode).toBe(201);
     expect(response.body.msg).toBe('User found successfully');
@@ -69,7 +73,7 @@ describe('User Controller', () => {
   });
 
   test('should delete a user', async () => {
-    const response = await request(app).delete(`/api/v1/user/${userId}`);
+    const response = await request(app).delete(`/api/test/user/${userId}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('User deleted successfully');

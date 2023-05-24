@@ -21,6 +21,12 @@ export const postSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
+    url_imagem: {
+        type: String,
+        required: true,
+        trim: true,
+        maxlength: 1000,
+    },
     comments : [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment",

@@ -1,16 +1,16 @@
-import mongoose from "mongoose";
 import { postModel } from "../../models/Post";
 
 export const postController = {
   create: async (req: any, res: any) => {
     try {
       const post = {
-        _id: new mongoose.Types.ObjectId(),
+        _id : req.body._id,
         user: req.body.user,
-        birthdate: req.body.birthdate,
-        email: req.body.email,
-        password: req.body.password,
-        profile_photo: req.body.profile_photo,
+        post_date: req.body.post_date,
+        description: req.body.description,
+        likes: req.body.likes,
+        url_imagem: req.body.url_imagem,
+        comments : req.body.comments,
       };
 
       const response = await postModel.create(post);
@@ -26,15 +26,16 @@ export const postController = {
   update: async (req: any, res: any) => {
     try {
       const id = req.params.id;
+
       const post = {
-        name: req.body.name,
-        user: req.body.user,
-        birthdate: req.body.birthdate,
-        email: req.body.email,
-        password: req.body.password,
-        profile_photo: req.body.profile_photo,
+        post_date: req.body.post_date,
+        description: req.body.description,
+        likes: req.body.likes,
+        url_imagem: req.body.url_imagem,
       };
-      const response = await postModel.findByIdAndUpdate(id, post, { new: true });
+      const response = await postModel.findByIdAndUpdate(id, post, {
+        new: true,
+      });
 
       if (!response) return res.status(404).json({ msg: "Post not found" });
 
@@ -80,13 +81,8 @@ export const postController = {
       const deletePost = await postModel.findByIdAndDelete(id);
 
       res.status(200).json({
-
-
-
-
-
         deletePost,
-        msg: "User deleted successfully",
+        msg: "Post deleted successfully",
       });
     } catch (error) {
       res.status(500).json({ error: error });

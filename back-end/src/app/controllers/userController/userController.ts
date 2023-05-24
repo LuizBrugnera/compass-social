@@ -36,7 +36,6 @@ export const userController = {
         profile_photo: req.body.profile_photo,
       };
       const response = await userModel.findByIdAndUpdate(id, user, { new: true });
-
       if (!response) return res.status(404).json({ msg: "User not found" });
 
       res.status(200).json({ response, msg: "User updated successfully" });
