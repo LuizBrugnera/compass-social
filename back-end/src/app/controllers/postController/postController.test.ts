@@ -27,7 +27,7 @@ describe('Post Controller', () => {
   test('should create a new user and a new post', async () => {
     
     const responseUser = await request(app)
-      .post('/api/test/user')
+      .post('/api/test/users')
       .send({
         name: 'testUserPost',
         user: 'testUserPost',
@@ -38,7 +38,7 @@ describe('Post Controller', () => {
       });
     
     const response = await request(app)
-      .post('/api/test/post')
+      .post('/api/test/posts')
       .send({
         _id : new mongoose.Types.ObjectId(),
         user: responseUser.body.response._id,
@@ -57,7 +57,7 @@ describe('Post Controller', () => {
 
   test('should update an existing post', async () => {
     const response = await request(app)
-      .put(`/api/test/post/${postId}`)
+      .put(`/api/test/posts/${postId}`)
       .send({
         post_date: new Date(),
         description: 'updated description',
@@ -69,7 +69,7 @@ describe('Post Controller', () => {
   });
 
   test('should get all posts', async () => {
-    const response = await request(app).get('/api/test/post');
+    const response = await request(app).get('/api/test/posts');
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('Posts found successfully');
@@ -78,7 +78,7 @@ describe('Post Controller', () => {
   });
 
   test('should get a post by id', async () => {
-    const response = await request(app).get(`/api/test/post/${postId}`);
+    const response = await request(app).get(`/api/test/posts/${postId}`);
 
     expect(response.statusCode).toBe(201);
     expect(response.body.msg).toBe('Post found successfully');
@@ -86,10 +86,10 @@ describe('Post Controller', () => {
   });
 
   test('should delete a post', async () => {
-    const response = await request(app).delete(`/api/test/post/${postId}`);
+    const response = await request(app).delete(`/api/test/posts/${postId}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('Post deleted successfully');
-    expect(response.body.deletePost._id).toBe(postId);
+    expect(response.body.response._id).toBe(postId);
   });
 });

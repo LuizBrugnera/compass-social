@@ -24,7 +24,7 @@ describe('User Controller', () => {
 
   test('should create a new user', async () => {
     const response = await request(app)
-      .post('/api/test/user')
+      .post('/api/test/users')
       .send({
         name: 'test',
         user: 'testuser',
@@ -42,7 +42,7 @@ describe('User Controller', () => {
 
   test('should update an existing user', async () => {
     const response = await request(app)
-      .put(`/api/test/user/${userId}`)
+      .put(`/api/test/users/${userId}`)
       .send({
         name: 'updatedName',
         user: 'updatedUser',
@@ -56,7 +56,7 @@ describe('User Controller', () => {
   });
 
   test('should get all users', async () => {
-    const response = await request(app).get('/api/test/user');
+    const response = await request(app).get('/api/test/users');
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('Users found successfully');
@@ -65,7 +65,7 @@ describe('User Controller', () => {
   });
 
   test('should get a user by id', async () => {
-    const response = await request(app).get(`/api/test/user/${userId}`);
+    const response = await request(app).get(`/api/test/users/${userId}`);
 
     expect(response.statusCode).toBe(201);
     expect(response.body.msg).toBe('User found successfully');
@@ -73,10 +73,10 @@ describe('User Controller', () => {
   });
 
   test('should delete a user', async () => {
-    const response = await request(app).delete(`/api/test/user/${userId}`);
+    const response = await request(app).delete(`/api/test/users/${userId}`);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe('User deleted successfully');
-    expect(response.body.deleteUser._id).toBe(userId);
+    expect(response.body.response._id).toBe(userId);
   });
 });

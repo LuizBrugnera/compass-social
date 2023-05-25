@@ -11,7 +11,7 @@ export const userController = {
         birthdate: req.body.birthdate,
         email: req.body.email,
         password: req.body.password,
-        profile_photo: req.body.profile_photo,
+        profile_photo: req.body.profile_photo || "",
       };
 
       const response = await userModel.create(user);
@@ -80,7 +80,7 @@ export const userController = {
       const deleteUser = await userModel.findByIdAndDelete(id);
 
       res.status(200).json({
-        deleteUser,
+        response : deleteUser,
         msg: "User deleted successfully",
       });
     } catch (error) {
