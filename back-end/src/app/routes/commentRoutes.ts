@@ -2,15 +2,16 @@ const { Router } = require("express");
 
 import { commentController } from "../controllers/commentController/commentController";
 import { validateDataComment } from "../middlewares/commentMiddleware/commentMiddleware";
+import { securityController } from "../controllers/securityController/securityController";
 const commentRoutes = new Router();
 
 commentRoutes.route("/posts/:postId/comments")
-.post(validateDataComment, commentController.create)
-.get(commentController.getAll)
+.post(securityController.checkJWT, validateDataComment, commentController.create)
+.get(securityController.checkJWT, commentController.getAll)
 
 commentRoutes.route("/posts/:postId/comments/:commentId")
-.get(commentController.getOne)
-.put(validateDataComment, commentController.update)
-.delete(commentController.delete)
+.get(securityController.checkJWT, commentController.getOne)
+.put(securityController.checkJWT, validateDataComment, commentController.update)
+.delete(securityController.checkJWT, commentController.delete)
 
 export default commentRoutes;
