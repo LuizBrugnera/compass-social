@@ -1,11 +1,31 @@
 import mongoose from "mongoose";
 import { commentModel } from "../../models/Comment";
 import { postModel } from "../../models/Post";
-import { IPost } from "../../interfaces/global.interfaces";
+import { userModel } from "../../models/User";
+import { Request, Response } from "express";
+
+type ErrorResponse = { msg: string };
+const USER_NOT_FOUND: ErrorResponse = { msg: "User not found" };
+const POST_NOT_FOUND: ErrorResponse = { msg: "Post not found" };
+const COMMENT_NOT_FOUND: ErrorResponse = { msg: "Comment not found" };
+
+async function fetchUser(userId: string) {
+  const user = await userModel.findById(userId);
+  if (!user) throw USER_NOT_FOUND;
+  return user;
+}
+
+async function fetchPost(postId: string) {
+  const post = await postModel.findById(postId);
+  if (!post) throw POST_NOT_FOUND;
+  return post;
+}
 
 export const commentController = {
-  create: async (req: any, res: any) => {
+  create: async (req: Request, res: Response) => {
     try {
+      await fetchUser(req.body.user);
+
       const comment = new commentModel({
         _id: new mongoose.Types.ObjectId(),
         user: req.body.user,
@@ -13,115 +33,93 @@ export const commentController = {
       });
       const savedComment = await comment.save();
 
-      const post = await postModel.findById(req.params.postId).populate('user');
-      if (post) {
-        post.comments.push(savedComment._id);
-        await post.save();
+      const post = await fetchPost(req.params.postId);
+      post.comments.push(savedComment._id);
+      await post.save();
 
-        const response = await commentModel.findById(savedComment._id).populate('user');
-        res.status(201).json({
-          response,
-          msg: "Comment created successfully",
-        });
-      } else {
-        res.status(404).json({
-          msg: "Post not found",
-        });
-      }
+      const response = await commentModel.findById(savedComment._id);
+      res.status(201).json({
+        response,
+        msg: "Comment created successfully",
+      });
     } catch (error) {
-      res.status(500).json({ error: `error add - ${error}` });
+      res.status(500).json({ error: error });
     }
   },
 
-  update: async (req: any, res: any) => {
+  update: async (req: Request, res: Response) => {
     try {
       const comment = {
         comment: req.body.comment,
       };
 
-      const response = await commentModel.findByIdAndUpdate(
+      const updatedComment = await commentModel.findByIdAndUpdate(
         req.params.commentId,
         comment,
-        {
-            new: true,
-          }
-      ).populate('user');
-      if (!response) return res.status(404).json({ msg: "User not found" });
-      res.status(200).json({ response, msg: "User updated successfully" });
+        { new: true }
+      );
+      if (!updatedComment) throw USER_NOT_FOUND;
+
+      res
+        .status(200)
+        .json({ response: updatedComment, msg: "User updated successfully" });
     } catch (error) {
       res.status(500).json({ error: error });
     }
   },
 
-  getAll: async (req: any, res: any) => {
+  getAll: async (req: Request, res: Response) => {
     try {
-      const post: IPost | null = await postModel.findById(req.params.postId).lean();
-      if (!post) return res.status(404).json({ msg: "Post not found" });
+      const post = await fetchPost(req.params.postId);
 
-      const response = await Promise.all(
-        post.comments.map((commentId: any) =>
-          commentModel.findById(commentId).populate('user').lean()
+      const comments = await Promise.all(
+        post.comments.map((commentId) =>
+          commentModel.findById(commentId).lean()
         )
       );
 
-      res.status(200).json({
-        response,
-        msg: "Comments found successfully",
-      });
+      res
+        .status(200)
+        .json({ response: comments, msg: "Comments found successfully" });
     } catch (error) {
       res.status(500).json({ error: error });
     }
   },
-  getOne: async (req: any, res: any) => {
-    try {
-        const post: IPost | null = await postModel.findById(req.params.postId).lean();
-        if (!post) return res.status(404).json({ msg: "Post not found" });
-  
-        const comments = await Promise.all(
-          post.comments.map((commentId: any) =>
-            commentModel.findById(commentId).populate('user').lean()
-          ));
 
-      const comment = comments.find(
-        (comment) => {
-            
-            if(comment)
-            {
-                return comment._id.toString() === req.params.commentId
-            }
-        }
+  getOne: async (req: Request, res: Response) => {
+    try {
+      const post = await fetchPost(req.params.postId);
+
+      const comments = await Promise.all(
+        post.comments.map((commentId) =>
+          commentModel.findById(commentId).lean()
+        )
       );
+      const comment = comments.find(
+        (comment) => comment && comment._id.toString() === req.params.commentId
+      );
+      if (!comment) throw COMMENT_NOT_FOUND;
 
-      if (!comment) return res.status(404).json({ msg: "Comment not found" });
-
-      res.status(201).json({
-        response : comment,
-        msg: "Comment found successfully",
-      });
+      res
+        .status(200)
+        .json({ response: comment, msg: "Comment found successfully" });
     } catch (error) {
       res.status(500).json({ error: error });
     }
   },
-  delete: async (req: any, res: any) => {
+
+  delete: async (req: Request, res: Response) => {
     try {
-      const response = await commentModel.findById(req.params.commentId);
-      if (!response) return res.status(404).json({ msg: "User not found" });
+      await commentModel.findByIdAndDelete(req.params.commentId);
 
-      const deleteComment = await commentModel.findByIdAndRemove(
-        req.params.commentId
-      ).populate('user');
-      const post = await postModel.findById(req.params.postId);
-      if (!post) return res.status(404).json({ msg: "Post not found" });
-
-      const commentIndex = post.comments.indexOf(req.params.commentId);
+      const post = await fetchPost(req.params.postId);
+      const commentIndex = post.comments.indexOf(req.params.commentId as any);
       if (commentIndex > -1) {
         post.comments.splice(commentIndex, 1);
         await post.save();
       }
-      res.status(200).json({
-        response : deleteComment,
-        msg: "Comment deleted successfully",
-      });
+
+      res.status(204).json();
     } catch (error) {
       res.status(500).json({ error: error });
     }

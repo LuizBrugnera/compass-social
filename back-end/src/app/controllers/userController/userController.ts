@@ -1,22 +1,14 @@
-import mongoose from "mongoose";
+import { Request, Response } from "express";
 import { userModel } from "../../models/User";
+import mongoose from "mongoose";
 
 export const userController = {
-  create: async (req: any, res: any) => {
+  create: async (req: Request, res: Response) => {
     try {
-      const user = {
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        user: req.body.user,
-        birthdate: req.body.birthdate,
-        email: req.body.email,
-        password: req.body.password,
-        profile_photo: req.body.profile_photo || "",
-      };
-
-      const response = await userModel.create(user);
+      req.body._id = new mongoose.Types.ObjectId();
+      const newUser = await userModel.create(req.body);
       res.status(201).json({
-        response,
+        response: newUser,
         msg: "User created successfully",
       });
     } catch (error) {
@@ -24,67 +16,67 @@ export const userController = {
     }
   },
 
-  update: async (req: any, res: any) => {
+  update: async (req: Request, res: Response) => {
     try {
-      const id = req.params.id;
-      const user = {
-        name: req.body.name,
-        user: req.body.user,
-        birthdate: req.body.birthdate,
-        email: req.body.email,
-        password: req.body.password,
-        profile_photo: req.body.profile_photo,
-      };
-      const response = await userModel.findByIdAndUpdate(id, user, { new: true });
-      if (!response) return res.status(404).json({ msg: "User not found" });
+      const userId = req.params.id;
+      const updatedUser = await userModel.findByIdAndUpdate(userId, req.body, {
+        new: true,
+      });
 
-      res.status(200).json({ response, msg: "User updated successfully" });
+      if (!updatedUser) {
+        res.status(404).json({ msg: "User not found" });
+        return;
+      }
+
+      res
+        .status(200)
+        .json({ response: updatedUser, msg: "User updated successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   },
 
-  getAll: async (req: any, res: any) => {
+  getAll: async (req: Request, res: Response) => {
     try {
-      const response = await userModel.find();
-      res.status(200).json({
-        response,
-        msg: "Users found successfully",
-      });
+      const users = await userModel.find();
+      res
+        .status(200)
+        .json({ response: users, msg: "Users found successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   },
-  getOne: async (req: any, res: any) => {
+
+  getOne: async (req: Request, res: Response) => {
     try {
-      const id = req.params.id;
-      const response = await userModel.findById(id);
+      const userId = req.params.id;
+      const user = await userModel.findById(userId);
 
-      if (!response) return res.status(404).json({ msg: "User not found" });
+      if (!user) {
+        res.status(404).json({ msg: "User not found" });
+        return;
+      }
 
-      res.status(201).json({
-        response,
-        msg: "User found successfully",
-      });
+      res.status(200).json({ response: user, msg: "User found successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   },
-  delete: async (req: any, res: any) => {
+
+  delete: async (req: Request, res: Response) => {
     try {
-      const id = req.params.id;
-      const response = await userModel.findById(id);
+      const userId = req.params.id;
+      const userToDelete = await userModel.findById(userId);
 
-      if (!response) return res.status(404).json({ msg: "User not found" });
+      if (!userToDelete) {
+        res.status(404).json({ msg: "User not found" });
+        return;
+      }
 
-      const deleteUser = await userModel.findByIdAndDelete(id);
-
-      res.status(200).json({
-        response : deleteUser,
-        msg: "User deleted successfully",
-      });
+      await userModel.findByIdAndDelete(userId);
+      res.status(204).json();
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(500).json({ error });
     }
   },
 };

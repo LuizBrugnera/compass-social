@@ -23,20 +23,19 @@ export const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        maxlength: 100,
+        maxlength: 200,
         unique: true,
     },
     password: {
         type: String,
         required: true,
         trim: true,
-        maxlength: 100,
+        maxlength: 200,
     },
     profile_photo: {
         type: String,
-        required: true,
         trim: true,
-        maxlength: 1000,
+        maxlength: 1500,
     },
 }, {
     timestamps: true,

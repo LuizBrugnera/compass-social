@@ -13,9 +13,8 @@ export const postSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
         trim: true,
-        maxlength: 500,
+        maxlength: 1500,
     },
     likes: {
         type: Number,
@@ -23,9 +22,8 @@ export const postSchema = new mongoose.Schema({
     },
     url_imagem: {
         type: String,
-        required: true,
         trim: true,
-        maxlength: 1000,
+        maxlength: 1500,
     },
     comments : [{
         type: mongoose.Schema.Types.ObjectId,

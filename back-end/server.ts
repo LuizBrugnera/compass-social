@@ -13,5 +13,5 @@ app.use("/api/v1", router);
 main();
 
 app.listen(process.env.PORT || 3005, () => {
-    console.log('Servidor da API rodando....');
+    console.log('API server running....');
 })
