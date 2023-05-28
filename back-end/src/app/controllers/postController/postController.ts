@@ -51,7 +51,7 @@ export const postController = {
 
   getAll: async (req: Request, res: Response) => {
     try {
-      const posts = await postModel.find();
+      const posts = await postModel.find().sort({ post_date: -1 })
       res
         .status(200)
         .json({ response: posts, msg: "Posts found successfully" });

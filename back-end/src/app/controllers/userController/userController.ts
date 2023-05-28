@@ -12,7 +12,7 @@ export const userController = {
         msg: "User created successfully",
       });
     } catch (error) {
-      res.status(500).json({ error: `error add - ${error}` });
+      res.status(500).json({ error: error });
     }
   },
 
