@@ -2,8 +2,8 @@
 
 .p-form,
 .a-login,
-.form-title,
-.form-input,
+.form-title-r,
+.form-input-r,
 ::placeholder,
 .btn-register,
 .error-warning,
@@ -32,19 +32,19 @@
   line-height: 96px;
 }
 
-.form-title {
+.form-title-r {
   width: 130px;
   height: 48px;
 
   margin: 20px;
 
-  font-size: 32px;
+  font-size: 30px;
   line-height: 48px;
 
   color: #ffffff;
 }
 
-.form-input,
+.form-input-r,
 .error-warning,
 .success-warning {
   box-sizing: border-box;
@@ -58,7 +58,7 @@
   background-color: rgba(255, 0, 0, 0);
 
   width: 406px;
-  height: 62px;
+  height: 58px;
 
   border: 2px solid #f5f5f5;
   border-radius: 46px;
@@ -180,7 +180,7 @@ span {
     width: 347.2px;
   }
 
-  .form-input {
+  .form-input-r {
     width: 324.8px;
   }
 
@@ -201,7 +201,7 @@ span {
     left: 290px;
   }
 
-  .form-input,
+  .form-input-r,
   .error-warning,
   .success-warning {
     width: 324.8px;
@@ -213,14 +213,14 @@ span {
     width: 225.5px;
   }
 
-  .form-input {
+  .form-input-r {
     width: 220.4px;
   }
 
   .btn-register {
     width: 220.4px;
   }
-  .form-input,
+  .form-input-r,
   .error-warning,
   .success-warning{
     width: 200.2px;
