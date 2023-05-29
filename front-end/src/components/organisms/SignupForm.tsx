@@ -10,7 +10,7 @@ const SignupForm = () => {
     {
       className: "name",
       message: "O nome deve ser maior que 2 caracteres e conter apenas letras!",
-      regex: new RegExp("^[a-zA-Z]{2,}$"),
+      regex: new RegExp("^[a-zA-Z\\s]{2,}$"),
     },
     {
       className: "user",
@@ -42,23 +42,23 @@ const SignupForm = () => {
   ];
 
   return (
-    <div className="conteiner_signup">
-      <h2 className="form-title">Registro</h2>
+    <div className="conteiner_signup-r">
+      <h2 className="form-title-r">Registro</h2>
 
       <form className="form">
         <div>
           <InputVerifiable
-            className="form-input name"
+            className="form-input-r name"
             message="O nome deve ser maior que 2 caracteres e conter apenas letras!"
             id="name"
             type="text"
             placeholder="Nome"
-            regex={new RegExp("^[a-zA-Z]{2,}$")}
+            regex={new RegExp("^[a-zA-Z\\s]{2,}$")}
           />
           <span className="input-name"></span>
 
           <InputVerifiable
-            className="form-input user"
+            className="form-input-r user"
             message="O usuário deve conter apenas letras, números, _ e - e ter no mínimo 4 caracteres!"
             type="text"
             placeholder="Usuário"
@@ -70,7 +70,7 @@ const SignupForm = () => {
           <span className="input-birth"></span>
 
           <InputVerifiable
-            className="form-input email"
+            className="form-input-r email"
             message="Email inválido"
             type="email"
             placeholder="Email"
@@ -79,7 +79,7 @@ const SignupForm = () => {
           <span className="input-email"></span>
 
           <InputVerifiable
-            className="form-input password"
+            className="form-input-r password"
             message="A senha deve conter no mínimo 6 caracteres e uma letra maiúscula !"
             type="password"
             placeholder="Senha"
@@ -90,7 +90,7 @@ const SignupForm = () => {
           <span className="input-password"></span>
 
           <InputVerifiable
-            className="form-input cnfPassword"
+            className="form-input-r cnfPassword"
             message="A senha deve conter no mínimo 6 caracteres e uma letra maiúscula!"
             type="password"
             placeholder="Confirmar Senha"
@@ -105,7 +105,7 @@ const SignupForm = () => {
 
         <ButtonSubmitSignup className="btn-register" elementList={elementSubmitList}>Registre-se</ButtonSubmitSignup>
       </form>
-      <p className="p-form">
+      <p className="p-form ">
         Já possui uma conta?
         <a href="/login" className="a-login">
           {" "}

@@ -5,12 +5,8 @@ import "./LoginForm.css";
 import { InputVerifiable } from "../molecules/InputVerifiable";
 import ButtonSubmitLogin from "../molecules/ButtonSubmitLogin";
 // types
-import { UserType } from "../types/UserType";
-type loginType = {
-  userList: UserType[];
-};
 
-const LoginForm = ({userList} : loginType) => {
+const LoginForm = () => {
   
   const elementList = [
     {className: "user", message: "Insira o usuário"},
@@ -19,7 +15,7 @@ const LoginForm = ({userList} : loginType) => {
 
   return (
     <div className="conteiner_login">
-      <h2 className="form-title">Registro</h2>
+      <h2 className="form-title">Login</h2>
 
       <form className="form">
         <div>
@@ -42,7 +38,7 @@ const LoginForm = ({userList} : loginType) => {
         <span className="error-warning"></span>
         <span className="success-warning"></span>
         
-        <ButtonSubmitLogin className="btn-register" elementList={elementList} userList={userList}>Logar-se</ButtonSubmitLogin>
+        <ButtonSubmitLogin className="btn-register" elementList={elementList}>Logar-se</ButtonSubmitLogin>
       </form>
       <p className="p-form">
         Novo por aqui?

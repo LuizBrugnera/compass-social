@@ -3,7 +3,7 @@ import { useNavigate} from "react-router-dom";
 //atoms
 import { checkElementList } from "../atoms/checker";
 /// auth provider
-import { useAuth } from '../../AuthProvider';
+import { useAuth } from '../../security/AuthProvider';
 // types
 import { ButtonSubmitType } from "../types/ButtonSubmitType";
 const ButtonSubmitLogin = ({
@@ -11,13 +11,12 @@ const ButtonSubmitLogin = ({
   className,
   id,
   elementList,
-  userList,
 }: ButtonSubmitType) => {
 
-  const { signIn } = useAuth();
+  const { setToken } = useAuth();
   const navigate = useNavigate();
 
-  const handlerSubmitLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handlerSubmitLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (checkElementList(elementList)) {
       const form = document.querySelector(".form")! as HTMLFormElement;
@@ -28,22 +27,11 @@ const ButtonSubmitLogin = ({
         ".error-warning"
       )! as HTMLSpanElement;
       const userInput = document.querySelector(".user")! as HTMLInputElement;
-      const passwordInput = document.querySelector(
-        ".password"
-      )! as HTMLInputElement;
+      const passwordInput = document.querySelector(".password")! as HTMLInputElement;
 
-      console.log(userInput.value, passwordInput.value);
-
-      if (userList) {
-        const userFinded = userList.find(
-          (user) =>
-            (user.user === userInput.value ||
-              user.email === userInput.value) &&
-            user.password === passwordInput.value
-        )
-        if (userFinded) {
-
-          signIn(userFinded);
+      if (userInput.value && passwordInput.value) {
+        const token = await setToken(userInput.value, passwordInput.value);
+        if (token) {
           sucessMessage.style.display = "flex";
           sucessMessage.innerHTML = "Login realizado com sucesso!";
           navigate("/home");
