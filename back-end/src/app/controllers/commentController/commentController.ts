@@ -43,7 +43,7 @@ export const commentController = {
         msg: "Comment created successfully",
       });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -64,7 +64,7 @@ export const commentController = {
         .status(200)
         .json({ response: updatedComment, msg: "User updated successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -82,7 +82,7 @@ export const commentController = {
         .status(200)
         .json({ response: comments, msg: "Comments found successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -104,7 +104,7 @@ export const commentController = {
         .status(200)
         .json({ response: comment, msg: "Comment found successfully" });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -121,7 +121,7 @@ export const commentController = {
 
       res.status(204).json();
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 };

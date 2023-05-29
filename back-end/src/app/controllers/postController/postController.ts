@@ -24,7 +24,7 @@ export const postController = {
         msg: "Post created successfully",
       });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -45,7 +45,7 @@ export const postController = {
         .status(200)
         .json({ response: updatedPost, msg: "Post updated successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -56,7 +56,7 @@ export const postController = {
         .status(200)
         .json({ response: posts, msg: "Posts found successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -72,7 +72,7 @@ export const postController = {
 
       res.status(200).json({ response: post, msg: "Post found successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -95,7 +95,7 @@ export const postController = {
       await postModel.findByIdAndDelete(postId);
       res.status(204).json();
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 };

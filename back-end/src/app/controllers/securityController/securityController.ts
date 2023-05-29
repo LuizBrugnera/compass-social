@@ -38,7 +38,7 @@ export const securityController = {
           msg: "token created successfully",
         });
       } catch (error) {
-        res.status(500).json({ error: error });
+        res.status(400).json({ error: error });
       }
     },
     checkJWT : (req: any, res: Response, next: NextFunction) => {
@@ -51,7 +51,7 @@ export const securityController = {
         }
         jwt.verify(token as string, process.env.SECRET as string, function (err, decoded) {
           if (err) {
-            return res.status(500).json({
+            return res.status(401).json({
               auth: false,
               message: 'Error authenticating token',
             });

@@ -12,7 +12,7 @@ export const userController = {
         msg: "User created successfully",
       });
     } catch (error) {
-      res.status(500).json({ error: error });
+      res.status(400).json({ error: error });
     }
   },
 
@@ -32,7 +32,7 @@ export const userController = {
         .status(200)
         .json({ response: updatedUser, msg: "User updated successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -43,7 +43,7 @@ export const userController = {
         .status(200)
         .json({ response: users, msg: "Users found successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -59,7 +59,7 @@ export const userController = {
 
       res.status(200).json({ response: user, msg: "User found successfully" });
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 
@@ -76,7 +76,7 @@ export const userController = {
       await userModel.findByIdAndDelete(userId);
       res.status(204).json();
     } catch (error) {
-      res.status(500).json({ error });
+      res.status(400).json({ error });
     }
   },
 };
