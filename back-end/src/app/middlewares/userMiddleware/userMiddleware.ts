@@ -22,3 +22,5 @@ export const validateDataUser = (req: Request, res: Response, next: NextFunction
   
     next();
   };
+
+

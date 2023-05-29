@@ -65,20 +65,20 @@ export const userController = {
 
   delete: async (req: Request, res: Response) => {
     try {
-      const userId = req.params.id;
-      const userToDelete = await userModel.findById(userId);
+        const userId = req.params.id;
+        const userToDelete = await userModel.findById(userId);
 
-      if (!userToDelete) {
-        res.status(404).json({ msg: "User not found" });
-        return;
-      }
+        if (!userToDelete) {
+            res.status(404).json({ msg: "User not found" });
+            return;
+        }
 
-      await userModel.findByIdAndDelete(userId);
-      res.status(204).json();
+        await userToDelete.deleteOne();
+        res.status(204).json();
     } catch (error) {
-      res.status(400).json({ error });
+        res.status(400).json({ error });
     }
-  },
+},
 };
 
 export default userController;
