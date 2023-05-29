@@ -13,7 +13,7 @@ const ButtonSubmitLogin = ({
   elementList,
 }: ButtonSubmitType) => {
 
-  const { setToken } = useAuth();
+  const { setToken, checkLogin } = useAuth();
   const navigate = useNavigate();
 
   const handlerSubmitLogin = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -34,7 +34,7 @@ const ButtonSubmitLogin = ({
         if (token) {
           sucessMessage.style.display = "flex";
           sucessMessage.innerHTML = "Login realizado com sucesso!";
-          navigate("/home");
+          if (checkLogin()) navigate("/home");
         } else {
           errorMessage.style.display = "flex";
           errorMessage.innerHTML = "Usuário ou senha incorretos!";
