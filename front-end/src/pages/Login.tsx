@@ -16,7 +16,7 @@ const Login = () => {
 
   return (
     <section id="login">
-      <LoginSignupLayout text="Para continuar navegando de forma segura, efetue o login" styleContent="section-content">
+      <LoginSignupLayout text="Para continuar navegando de forma segura, efetue o login" styleContent="section-content" styleLogo="logo-mobile-login">
         <LoginForm />
       </LoginSignupLayout>
     </section>

@@ -97,6 +97,7 @@ span {
 
 .p-form {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .btn-register {
@@ -149,6 +150,16 @@ span {
 
   .btn-register {
     width: 324.8px;
+  }
+
+  .h1-title {
+    padding: 0px 30px;
+  }
+
+  .p-title {
+    width: initial;
+    padding: 0px 30px;
+    height: 24px;
   }
 
   .input-name::before,
