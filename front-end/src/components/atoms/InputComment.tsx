@@ -10,127 +10,66 @@ import clip_icon from "../../assets/clip_icon.png";
 import point_icon from "../../assets/point_icon.png";
 import smile_icon from "../../assets/smile_icon.png";
 ///auth user
-import { useAuth } from '../../AuthProvider';
+import { useAuth } from "../../security/AuthProvider";
+import { CommentService } from "../services/CommentService";
 
 // types
 type InputAreaType = {
   message: string;
-  type: string;
-  setPostList?: any;
+  setCommentList: any;
+  postId: string;
 };
-const InputArea = ({ message, type, setPostList }: InputAreaType) => {
+const InputArea = ({ message, setCommentList, postId }: InputAreaType) => {
+  let { userAuth } = useAuth();
 
-  let { user } = useAuth();
+  let user = userAuth?.user
+    ? userAuth.user
+    : {
+        name: "Usuário",
+        user: "usuario",
+        birthdate: "1912-06-23",
+        email: "usuario@gmail.com",
+        password: "usuario",
+        profile_photo: user_img,
+      };
 
-  if(user === null) {
-    user = {
-      name: "Usuário",
-      user: "usuario",
-      birthdate: "1912-06-23",
-      email: "usuario@gmail.com",
-      password: "usuario",
-      profile_photo: user_img,
-    }
-  }
+  const handlerAddComment = async () => {
+    if (comment !== "") {
+      const commentResponse = await CommentService.createComment(
+        userAuth?.token!,
+        postId,
+        { user: user, comment: comment }
+      );
 
-  const handlerImgInput = () => {
-    setImgInput(!imgInput);
-  };
-  const handlerLocationInput = () => {
-    setLocationInput(!locationInput);
-  };
-
-  const handlerAddPost = () => {
-    if (description !== "" || url_imagem !== "") {
-      const now = new Date();
-      setPostList((prevState: any) => {
-        return [
-          {
-            user: user?.user,
-            description: description,
-            url_imagem: url_imagem,
-            post_date: now.getTime(),
-            likes: 0,
-          },
-          ...prevState,
-        ];
-      });
+      setCommentList(commentResponse.response);
+      setComment("");
     }
   };
-  const [imgInput, setImgInput] = useState(false);
-  const [locationInput, setLocationInput] = useState(false);
-  const [description, setDescription] = useState("");
-  const [url_imagem, setUrl_imagem] = useState("");
-  /// const [location, setLocation] = useState("");
+  const [comment, setComment] = useState("");
 
   return (
     <>
       <div className={styles.container_add}>
-        <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
+        <img
+          className={styles.profile_img}
+          src={user.profile_photo}
+          alt="you"
+        />
         <input
           className={styles.input_post}
           type="text"
           placeholder={message}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDescription(e.target.value)
+            setComment(e.target.value)
           }
+          value={comment}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter") {
+              handlerAddComment();
+            }
+          }}
         />
       </div>
-      {type === "post" && (
-        <>
-          {imgInput && (
-            <div className={`${styles.container_add} ${styles.pad16}`}>
-              <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
-              <input
-                className={styles.input_post}
-                type="text"
-                placeholder={"Adicione o url da imagem"}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setUrl_imagem(e.target.value)
-                }
-              />
-            </div>
-          )}
-
-          {locationInput && (
-            <div className={`${styles.container_add} ${imgInput ? styles.pad16_bottom : styles.pad16}`}>
-              <img className={styles.friend_img} src={user.profile_photo} alt="friend" />
-              <input
-                className={styles.input_post}
-                type="text"
-                placeholder={"Adicione a localização"}
-              />
-            </div>
-          )}
-
-          <div className={styles.container_flex_between}>
-            <div className={styles.container_icons}>
-              <img className={styles.icon_24} src={cam_icon} alt="cam icon" />
-              <img
-                className={styles.icon_24}
-                src={img_icon}
-                alt="img icon"
-                onClick={handlerImgInput}
-              />
-              <img className={styles.icon_24} src={clip_icon} alt="clip icon" />
-              <img
-                className={styles.icon_24}
-                src={point_icon}
-                alt="point icon"
-                onClick={handlerLocationInput}
-              />
-              <img
-                className={styles.icon_24}
-                src={smile_icon}
-                alt="smile icon"
-              />
-            </div>
-            <button className={styles.btn_post} onClick={handlerAddPost}>
-              Postar
-            </button>
-          </div>
-        </>
-      )}
     </>
   );
 };
