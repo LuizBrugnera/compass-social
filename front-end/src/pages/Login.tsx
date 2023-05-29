@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from 'react';
- // components
-import LoginSignupLayout from '../components/templates/LoginSignupLayout';
-import LoginForm from '../components/organisms/LoginForm';
+import React, { useEffect } from "react";
+// components
+import LoginSignupLayout from "../components/templates/LoginSignupLayout";
+import LoginForm from "../components/organisms/LoginForm";
+import { useAuth } from "../security/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-
-  const [userList, setUserList] = useState<any[]>([]);
-  console.log(process.env.REACT_APP_API_URL)
+  const navigate = useNavigate();
+  let { checkLogin } = useAuth();
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/v1/user/`)
-      .then(response => response.json())
-      .then(data => setUserList(data.users));
+    if (checkLogin()) {
+      navigate("/home");
+    }
   }, []);
 
   return (
-    <section id='login'>
-        <LoginSignupLayout text='Para continuar navegando de forma segura, efetue o login'>
-            <LoginForm userList={userList}/>
-        </LoginSignupLayout>
+    <section id="login">
+      <LoginSignupLayout text="Para continuar navegando de forma segura, efetue o login" styleContent="section-content">
+        <LoginForm />
+      </LoginSignupLayout>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
