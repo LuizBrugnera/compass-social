@@ -1,31 +1,45 @@
-import React from "react";
-//css
+import React, { useState, useEffect } from "react";
+
 import "./HomeLayout.css";
-// components
+
 import FriendBox from "../molecules/FriendBox";
 import PostFlush from "../organisms/PostFlush";
-// assets
+import InputPost from "../atoms/InputPost";
+
 import compass_logo from "../../assets/compass_logo.png";
 import house_icon from "../../assets/house_icon.png";
 import user_img from "../../assets/default_photo.png";
-import InputPost from "../atoms/InputPost";
-import { useAuth } from '../../AuthProvider';
 
+import { useAuth } from "../../security/AuthProvider";
+import { PostService } from "../services/PostService";
+import { UserService } from "../services/UserService";
 
-const HomeLayout = ({ userList, postList, setPostList }: any) => {
-  
-  let { user } = useAuth();
+const HomeLayout = () => {
+  const [postList, setPostList] = useState([] as any);
+  const [userList, setUserList] = useState([] as any);
 
-  if(user === null) {
-    user = {
-      name: "Usuário",
-      user: "usuario",
-      birthdate: "1912-06-23",
-      email: "usuario@gmail.com",
-      password: "usuario",
-      profile_photo: user_img,
-    }
-  }
+  const { userAuth } = useAuth();
+  let user = userAuth?.user
+    ? userAuth.user
+    : {
+        name: "Usuário",
+        user: "usuario",
+        birthdate: "1912-06-23",
+        email: "usuario@gmail.com",
+        password: "usuario",
+        profile_photo: user_img,
+      };
+  user.profile_photo = user.profile_photo ? user.profile_photo : user_img;
+
+  useEffect(() => {
+    PostService.getPosts(userAuth?.token!).then((res) =>
+      res.response ? setPostList(res.response) : setPostList([])
+    );
+    UserService.getUsersAndFillPhoto(userAuth?.token!).then((res) =>
+      res ? setUserList(res) : setUserList([])
+    );
+  }, []);
+
   return (
     <main className="container_main">
       <div className="container_section">
@@ -42,21 +56,27 @@ const HomeLayout = ({ userList, postList, setPostList }: any) => {
             </div>
             <div className="container_item">
               <span className="font_16">{user.name}</span>
-              <div className="profile_box"> 
-                <img className="user_img" src={user.profile_photo} alt="user img" />
+              <div className="profile_box">
+                <img
+                  className="user_img"
+                  src={user.profile_photo}
+                  alt="user img"
+                />
               </div>
             </div>
           </div>
           <div className="container_content">
             <div className="container_feed">
               <div className="post_box add_post">
-                <InputPost message={"No que você está pensando?"} setPostList={setPostList}/>
-                
+                <InputPost
+                  message={"No que você está pensando?"}
+                  setPostList={setPostList}
+                />
               </div>
-              <PostFlush postList={postList} userList={userList} />
+              <PostFlush postList={postList} />
             </div>
             <div className="container_friends">
-              <FriendBox userList={userList} type={'friend-list'}/>
+              <FriendBox userList={userList} type={"friend-list"} />
             </div>
           </div>
         </div>

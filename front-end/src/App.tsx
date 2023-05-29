@@ -7,7 +7,6 @@ import Home from './pages/Home';
 import PrivateRoute from './PrivateRoute';
 
 function App(): JSX.Element {
-
   return (
       <Router>
         <Routes>
