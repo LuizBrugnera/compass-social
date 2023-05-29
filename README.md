@@ -23,6 +23,7 @@ front end
 
 https://compass-social-2hbp.vercel.app/
 
+
 api 
 
 
@@ -35,3 +36,9 @@ you can login with email or user
 # signup 
 
 create an account and start using
+
+# tests
+in back end 
+
+
+npm test -- --config jest.config.js --testRegex "./*(.test.js)$"

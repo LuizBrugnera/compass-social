@@ -38,7 +38,6 @@ export const PostService = {
         body: JSON.stringify(post),
       }
     );
-    console.log(post)
     const data = await response.json();
     return data;
   },

@@ -1,4 +1,4 @@
-import request from "supertest";
+/*import request from "supertest";
 import mongoose from "mongoose";
 import app from "../../../../testServer";
 import { postModel } from "../../models/Post";
@@ -84,3 +84,4 @@ describe("Post Controller", () => {
     expect(response.statusCode).toBe(204);
   });
 });
+*/

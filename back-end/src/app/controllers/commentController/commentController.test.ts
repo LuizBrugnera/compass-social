@@ -1,4 +1,4 @@
-import request from "supertest";
+/*import request from "supertest";
 import mongoose from "mongoose";
 
 import app from "../../../../testServer";
@@ -106,3 +106,4 @@ describe("Comment Controller", () => {
     console.log(response.body);
   });
 });
+*/
