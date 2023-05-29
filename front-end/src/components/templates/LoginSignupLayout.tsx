@@ -7,13 +7,14 @@ import compass_img from "../../assets/compass.png";
 type LoginSignupLayoutProps = {
     children: ReactNode;
     text: string;
+    styleContent: string;
 }
 
-const LoginSignupLayout = ({ children, text } : LoginSignupLayoutProps) => {
+const LoginSignupLayout = ({ children, text, styleContent } : LoginSignupLayoutProps) => {
   return (
     <main className="main">
 
-        <section className="section-content">
+        <section className={styleContent}>
             <div className='main-title'>
     
                 <h1 className="h1-title">Olá,</h1>
