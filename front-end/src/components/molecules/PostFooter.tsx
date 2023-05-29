@@ -1,37 +1,47 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 // atoms
 import Interactions from "../atoms/Interactions";
 // css
 import "./PostFooter.module.css";
-// assets 
-import defaultPhoto from "../../assets/default_photo.png";
 // types
-import { UserType } from "../types/UserType";
-import InputArea from "../atoms/InputComment";
+import InputComment from "../atoms/InputComment";
+import { UserService } from "../services/UserService";
+import { useAuth } from "../../security/AuthProvider";
+import { CommentService } from "../services/CommentService";
+
 type PostFooterType = {
   likes: number;
-  comments: any[];
-  userList: UserType[];
+  postId: string;
 };
-const PostFooter = ({ likes, comments, userList }: PostFooterType) => {
 
-  const getUser = (
-    defaultPhoto: string,
-    cmt: { user: string; comment: string }
-  ) => {
-    const user = userList.find((user) => user.user === cmt.user);
-    return user ? user : { name: cmt.user, profile_photo: defaultPhoto };
-  };
+const PostFooter = ({ likes, postId }: PostFooterType) => {
+
+  let { userAuth } = useAuth();
+  const [ comments, setComments ] = useState([] as any);
+ const [ newComment, setNewComment ] = useState({} as any);
+  useEffect(() => {
+    async function getComments() {
+      const commentList = await CommentService.getComments(userAuth?.token!, postId);
+
+      await Promise.all(commentList.response.map(async (cmt: any) => {
+        let user = await UserService.getUserAndFillPhoto(userAuth?.token!, cmt.user);
+        cmt.user = user;
+        return cmt; 
+      }));
+      setComments(commentList.response);
+    }
+
+    getComments()
+  }
+  , [newComment, postId, userAuth?.token]);
 
   const allComments = () => {
     return comments.map((cmt: any, index: number) => {
-      const user = getUser(defaultPhoto, cmt);
-
       return (
         <div className="comment_box" key={index}>
-          <img className="comment_img" src={user.profile_photo} alt="friend" />
+          <img className="comment_img" src={cmt.user.profile_photo} alt="friend" />
           <div className="container_comment_data">
-            <span className="font_12 fw_500">{user.name}: </span>
+            <span className="font_12 fw_500">{cmt.user.name}: </span>
             <span className="font_11">{cmt.comment}</span>
           </div>
         </div>
@@ -41,17 +51,16 @@ const PostFooter = ({ likes, comments, userList }: PostFooterType) => {
 
   const firstComment = () => {
     return comments.map((cmt: any, index: number) => {
-      const user = getUser(defaultPhoto, cmt);
       if (index < 1) {
         return (
           <div className="comment_box" key={index}>
             <img
               className="comment_img"
-              src={user.profile_photo}
+              src={cmt.user.profile_photo}
               alt="friend"
             />
             <div className="container_comment_data">
-              <span className="font_12 fw_500">{user.name}: </span>
+              <span className="font_12 fw_500">{cmt.user.name}: </span>
               <span className="font_11">{cmt.comment}</span>
             </div>
           </div>
@@ -75,13 +84,11 @@ const PostFooter = ({ likes, comments, userList }: PostFooterType) => {
     setShowBox(!showBox);
   };
 
-  comments = comments ? comments : [];
-
   return (
     <div className="post_footer">
       <Interactions likes={likes} comments={comments}/>
 
-      <InputArea message={"O que voce está pensando?"} type={"comment"}/>
+      <InputComment message={"O que voce está pensando?"} setCommentList={setNewComment} postId={postId}/>
 
       <div className="container_comments">
         <span className="font_12">Todos os comentários</span>

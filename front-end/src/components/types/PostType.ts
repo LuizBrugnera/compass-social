@@ -1,4 +1,5 @@
 export interface PostType {
+  _id: string;
   user: string;
   post_date: string;
   description: string;

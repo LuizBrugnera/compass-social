@@ -9,6 +9,7 @@ type PostContentType = {
 
 const PostContent = ({ description, url_imagem }: PostContentType) => {
   const font = url_imagem ? "font_12_pd16" : "font_12";
+
   return (
     <div className={styles.post_content}>
       <p className={styles[font]}>{description}</p>

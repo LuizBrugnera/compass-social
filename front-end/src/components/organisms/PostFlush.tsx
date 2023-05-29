@@ -1,17 +1,16 @@
 import React from "react";
-import { PostType } from "../types/PostType";
 import PostBox from "./PostBox";
-import { UserType } from "../types/UserType";
+import { PostType } from "../types/PostType";
 
 type PostFlushType = {
   postList: PostType[];
-  userList: UserType[];
 };
-const PostFlush = ({ postList, userList }: PostFlushType) => {
+const PostFlush = ({ postList }: PostFlushType) => {
+  
   return (
     <>
       {postList.map((post, index) => {
-        return <PostBox post={post} userList={userList} key={index} />;
+        return <PostBox post={post} key={index} />;
       })}
     </>
   );

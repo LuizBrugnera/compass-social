@@ -1,34 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // molecules
 import PostHeader from "../molecules/PostHeader";
 import PostContent from "../molecules/PostContent";
 import PostFooter from "../molecules/PostFooter";
 // types
 import { PostType } from "../types/PostType";
-import { UserType } from "../types/UserType";
 // css
 import "./PostBox.css";
+import { UserService } from "../services/UserService";
+import { useAuth } from "../../security/AuthProvider";
 
 type PostBoxType = {
-    post: PostType;
-    userList: UserType[];
-}
+  post: PostType;
+};
 
-const PostBox = ({post, userList} : PostBoxType) => {
-    const defaultPhoto = require("../../assets/default_photo.png") as string;
-    
-    const getUser = (defaultPhoto : string) => { 
-        const user = userList.find(user => user.user === post.user);
-        return user ? user : {name: post.user, profile_photo: defaultPhoto};
-    }
+const PostBox = ({ post }: PostBoxType) => {
+  let { userAuth } = useAuth();
 
-    const user = getUser(defaultPhoto);
+  const [userPost, setUserPost] = useState({} as any);
+
+  useEffect(() => {
+    UserService.getUserAndFillPhoto(userAuth?.token!, post.user).then((response) => {
+      setUserPost(response);
+    });
+  }, []);
 
   return (
     <div className="post_box">
-      <PostHeader profile_photo={user.profile_photo} name={user.name} post_date={post.post_date}/>
-      <PostContent description={post.description} url_imagem={post.url_imagem}/>
-      <PostFooter likes={post.likes} comments={post.comments} userList={userList}/>
+      <PostHeader
+        profile_photo={userPost.profile_photo}
+        name={userPost.name}
+        post_date={post.post_date}
+      />
+      <PostContent
+        description={post.description}
+        url_imagem={post.url_imagem}
+      />
+      <PostFooter likes={post.likes} postId={post._id} />
     </div>
   );
 };
