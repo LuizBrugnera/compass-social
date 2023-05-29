@@ -69,6 +69,13 @@ const InputArea = ({ message, setCommentList, postId }: InputAreaType) => {
             }
           }}
         />
+        <div className={styles.icons}>
+          <img className={styles.icon_24} src={cam_icon} alt="camera icon" />
+          <img className={styles.icon_24}  src={img_icon} alt="img icon" />
+          <img className={styles.icon_24}  src={clip_icon} alt="clip icon" />
+          <img className={styles.icon_24}  src={point_icon} alt="point icon" />
+          <img className={styles.icon_24}  src={smile_icon} alt="smile icon" />
+        </div>
       </div>
     </>
   );

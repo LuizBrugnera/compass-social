@@ -21,6 +21,7 @@ afterAll(async () => {
 
 describe("User Controller", () => {
   let userId: string;
+  let token: string;
 
   test("should create a new user", async () => {
     const response = await request(app).post("/api/test/users").send({
@@ -38,21 +39,38 @@ describe("User Controller", () => {
     userId = response.body.response._id;
   });
 
-  test("should update an existing user", async () => {
-    const response = await request(app).put(`/api/test/users/${userId}`).send({
-      name: "updatedName",
-      user: "updatedUser",
-      birthdate: new Date(),
-      email: "updatedEmail@test.com",
-      password: "updatedPassword",
-      profile_photo: "https://www.updated.jpg",
+  test("login to user", async () => {
+    const response = await request(app).post("/api/test/login").send({
+      name: "test",
+      password: "password",
     });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.body.msg).toBe("Login successfully");
+
+    token = response.body.response;
+  });
+
+  test("should update an existing user", async () => {
+    const response = await request(app)
+      .put(`/api/test/users/${userId}`)
+      .set("x-access-token", token)
+      .send({
+        name: "updatedName",
+        user: "updatedUser",
+        birthdate: new Date(),
+        email: "updatedEmail@test.com",
+        password: "updatedPassword",
+        profile_photo: "https://www.updated.jpg",
+      });
 
     expect(response.statusCode).toBe(200);
   });
 
   test("should get all users", async () => {
-    const response = await request(app).get("/api/test/users");
+    const response = await request(app)
+      .get("/api/test/users")
+      .set("x-access-token", token);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe("Users found successfully");
@@ -61,7 +79,8 @@ describe("User Controller", () => {
   });
 
   test("should get a user by id", async () => {
-    const response = await request(app).get(`/api/test/users/${userId}`);
+    const response = await request(app).get(`/api/test/users/${userId}`)
+    .set('x-access-token', token);
 
     expect(response.statusCode).toBe(200);
     expect(response.body.msg).toBe("User found successfully");
@@ -69,7 +88,8 @@ describe("User Controller", () => {
   });
 
   test("should delete a user", async () => {
-    const response = await request(app).delete(`/api/test/users/${userId}`);
+    const response = await request(app).delete(`/api/test/users/${userId}`)
+    .set('x-access-token', token);
 
     expect(response.statusCode).toBe(204);
   });

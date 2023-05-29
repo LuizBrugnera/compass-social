@@ -1,76 +1,89 @@
 .container_add {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    justify-content: space-around;
-  
-    width: 100%;
-  }
-  
-  .profile_img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  .input_post {
-    width: 91.73%;
-    height: 37px;
-  
-    text-align: left;
-    padding-left: 24px;
-  
-    background: #27282f;
-    border: none;
-    border-radius: 40px;
-  }
-  .input_post::placeholder {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 21px;
-  
-    color: #75767d;
-  }
-  .container_flex_between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 16px;
-  }
-  
-  .container_icons {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 25px;
-  }
-  
-  .icon_24 {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .btn_post {
-    padding: 6px 32px;
-    width: 109px;
-    height: 33px;
-  
-    background: #262e6500;
-    border: 2px solid #27282f;
-    border-radius: 8px;
-  }
-  
-  .btn_post:hover {
-    background: #262e65;
-    border: 2px solid #262e65;
-  }
-  
-  .pad16 {
-      padding: 16px 0px;
-  }
-  
-  .pad16_bottom {
-      padding-bottom: 16px;
-  }
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-around;
+
+  width: 100%;
+}
+
+.profile_img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.input_post {
+  width: 91.73%;
+  height: 37px;
+
+  text-align: left;
+  padding-left: 24px;
+
+  background: #27282f;
+  border: none;
+  border-radius: 40px;
+
+  flex-grow: 1;
+}
+
+.icons {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+}
+
+.icon_24 {
+  margin: 8px;
+  width: 19px;
+  height: 19px;
+}
+
+.input_post::placeholder {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #75767d;
+}
+.container_flex_between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+.container_icons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 25px;
+}
+
+.btn_post {
+  padding: 6px 32px;
+  width: 109px;
+  height: 33px;
+
+  background: #262e6500;
+  border: 2px solid #27282f;
+  border-radius: 8px;
+}
+
+.btn_post:hover {
+  background: #262e65;
+  border: 2px solid #262e65;
+}
+
+.pad16 {
+  padding: 16px 0px;
+}
+
+.pad16_bottom {
+  padding-bottom: 16px;
+}

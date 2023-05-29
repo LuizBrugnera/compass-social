@@ -6,7 +6,7 @@ import { securityController } from "../controllers/securityController/securityCo
 const userRoutes = new Router();
 
 userRoutes.route("/users")
-.post(securityController.checkJWT, validateDataUser, userController.create)
+.post(validateDataUser, userController.create)
 .get(securityController.checkJWT, userController.getAll)
 
 userRoutes.route("/users/:id")
